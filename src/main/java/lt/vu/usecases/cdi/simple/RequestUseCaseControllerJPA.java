@@ -34,18 +34,31 @@ public class RequestUseCaseControllerJPA {
     @Getter
     private List<Manufacturer> allManufacturers;
 
+    @Getter
+    private  List<Phone> allPhones;
+
     @Getter @Setter
     private int manufacturerId;
+
+    @Getter @Setter
+    private int phonesCount;
+
+    @Setter @Getter
+    private int phoneId;
 
     @PostConstruct
     public void init() {
        loadAllManufacturers();
+       loadAllPhones();
     }
 
     private void loadAllManufacturers() {
         allManufacturers = manufacturerDAO.getAllManufacturies();
     }
 
+    private void loadAllPhones(){
+        allPhones = phoneDAO.getAllPhones();
+    }
 
     @Transactional
     public void createPhone() {
