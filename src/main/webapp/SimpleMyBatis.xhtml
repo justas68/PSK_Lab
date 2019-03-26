@@ -4,11 +4,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
 >
-<h:head/>
+<h:head>
+    <h:outputStylesheet name="css/styles.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+</h:head>
 <h:body>
+    <p:link outcome="index">
+        <button class="btn"><i class="fa fa-home"></i> Home</button>
+    </p:link>
     <h:form>
         <h2>Add Phone and manufacturer together</h2>
         <table>
@@ -28,7 +32,8 @@
                 <td>
                     <h:panelGrid columns="3">
                         <p:outputLabel for="ManufacturerName" value="Manufacturer name"/>
-                        <p:inputText id="ManufacturerName" value="#{requestUseCaseControllerMyBatis.manufacturer.name}"/>
+                        <p:inputText id="ManufacturerName"
+                                     value="#{requestUseCaseControllerMyBatis.manufacturer.name}"/>
                         <p:message for="ManufacturerName"/>
                     </h:panelGrid>
                 </td>
@@ -36,7 +41,6 @@
         </table>
         <p:commandButton value="Create manufacturer and phone"
                          actionListener="#{requestUseCaseControllerMyBatis.createManufacturerWithPhone()}"
-                         action="index?faces-redirect=true"
                          ajax="false"/>
     </h:form>
 </h:body>
