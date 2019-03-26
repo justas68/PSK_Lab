@@ -63,4 +63,9 @@
     select ID, MODEL, PRICE, MANUFACTURER_ID
     from PUBLIC.PHONE
   </select>
+  <select id="selectByManufacturerId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select ID, MODEL, PRICE, MANUFACTURER_ID
+    from PUBLIC.PHONE
+    where MANUFACTURER_ID = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

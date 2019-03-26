@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:width="http://java.sun.com/jsf/facelets">
+<h:head/>
+<h:body>
+    <h2 style="margin-left: 3%; margin-top: 2%;">Get all phones created by this manufacturer</h2>
+<h:form id="form" style="margin-left: 5%;">
+    <p:outputLabel for="manufacturers" value="Manufacturer:   " />
+    <h:selectOneMenu id="manufacturers" value="#{requestUseCaseControllerMyBatis.manufacturerId}" style="width:200px; font-size: 20px; height: 25px; margin-left: 1%;"
+                     onclick="">
+        <f:selectItems value="#{requestUseCaseControllerMyBatis.allManufacturers}" var="m"
+                       itemLabel="#{m.name}" itemValue="#{m.id}" />
+        <f:ajax listener="#{requestUseCaseControllerMyBatis.valueChanged}" render=":phonesTable"/>
+    </h:selectOneMenu>
+</h:form>
+    <br/>
+    <p:dataTable id ="phonesTable" value="#{requestUseCaseControllerMyBatis.phonesOfManufacturer}" var="phone" style="margin-left: 3%; margin-right: 5%;">
+        <p:column headerText="Model">
+            <h:outputText value="#{phone.model}" />
+        </p:column>
+        <p:column headerText="Price">
+            <h:outputText value="#{phone.price} €" />
+        </p:column>
+    </p:dataTable>
+</h:body>
+</html>

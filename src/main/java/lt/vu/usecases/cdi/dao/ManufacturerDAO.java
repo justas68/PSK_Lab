@@ -27,8 +27,8 @@ public class ManufacturerDAO {
     @Inject
     private EntityManager em;
 
-    public void create(Manufacturer manufacuter) {
-        em.persist(manufacuter);
+    public void create(Manufacturer manufacturer) {
+        em.persist(manufacturer);
     }
 
     public List<Manufacturer> getAllManufacturies() {

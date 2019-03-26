@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+<h:head/>
+<h:body>
+    <h:form>
+        <h2>Add Phone and manufacturer together</h2>
+        <table>
+            <tr>
+                <td>
+                    <h:panelGrid columns="3">
+                        <p:outputLabel for="model" value="model"/>
+                        <p:inputText id="model" value="#{requestUseCaseControllerMyBatis.phone.model}"/>
+                        <p:message for="model"/>
+
+                        <p:outputLabel for="price" value="price"/>
+                        <p:inputText id="price" value="#{requestUseCaseControllerMyBatis.phone.price}"/>
+                        <p:message for="price"/>
+
+                    </h:panelGrid>
+                </td>
+                <td>
+                    <h:panelGrid columns="3">
+                        <p:outputLabel for="ManufacturerName" value="Manufacturer name"/>
+                        <p:inputText id="ManufacturerName" value="#{requestUseCaseControllerMyBatis.manufacturer.name}"/>
+                        <p:message for="ManufacturerName"/>
+                    </h:panelGrid>
+                </td>
+            </tr>
+        </table>
+        <p:commandButton value="Create manufacturer and phone"
+                         actionListener="#{requestUseCaseControllerMyBatis.createManufacturerWithPhone()}"
+                         action="index?faces-redirect=true"
+                         ajax="false"/>
+    </h:form>
+</h:body>
+</html>

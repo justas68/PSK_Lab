@@ -4,19 +4,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
 >
 <h:head/>
 <h:body>
-  <h:form>
-     <p:commandButton value="Create phone jpa"
-                      actionListener="#{requestUseCaseControllerJPA.createPhone()}"
-                      action="simple-usecase-jpa?faces-redirect=true"
-                      ajax="false"/>
-     <p:commandButton value="Create phone mybatis"
-                      actionListener="#{requestUseCaseControllerMyBatis.createPhone()}"
-                      action="simple-usecase-mybatis?faces-redirect=true"
-                      ajax="false"/>
-      <p:messages globalOnly="true"/>
-  </h:form>
+    <ul>
+        <li><h:link outcome="SimpleJPA">JPA</h:link></li>
+        <li><h:link outcome="SimpleMyBatis">MyBatis</h:link></li>
+        <li><h:link outcome="Manufacturer-Phone-data-representation">....</h:link></li>
+    </ul>
 </h:body>
 </html>

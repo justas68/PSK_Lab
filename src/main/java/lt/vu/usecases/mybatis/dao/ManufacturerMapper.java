@@ -45,4 +45,5 @@ public interface ManufacturerMapper {
      * @mbg.generated Sun Mar 24 22:30:53 EET 2019
      */
     int updateByPrimaryKey(Manufacturer record);
+
 }

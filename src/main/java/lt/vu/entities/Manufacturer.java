@@ -33,7 +33,6 @@ public class Manufacturer implements Serializable {
     @Column(name = "ID")
     private Integer id;
 
-    @Size(max = 50)
     @Column(name = "name")
     private String name;
 

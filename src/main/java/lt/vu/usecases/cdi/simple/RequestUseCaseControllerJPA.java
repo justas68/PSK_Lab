@@ -1,6 +1,7 @@
 package lt.vu.usecases.cdi.simple;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import lt.vu.entities.Manufacturer;
 import lt.vu.entities.Phone;
@@ -11,12 +12,12 @@ import lt.vu.usecases.cdi.dao.ShopDAO;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Model
-@Slf4j
 public class RequestUseCaseControllerJPA {
     @Getter
     private Phone phone = new Phone();
@@ -24,40 +25,43 @@ public class RequestUseCaseControllerJPA {
     @Getter
     private Manufacturer manufacturer = new Manufacturer();
 
-    @Getter
-    private Shop shop = new Shop();
-
     @Inject
     private PhoneDAO phoneDAO;
 
     @Inject
     private ManufacturerDAO manufacturerDAO;
 
-    @Inject
-    private ShopDAO shopDAO;
+    @Getter
+    private List<Manufacturer> allManufacturers;
 
-    private List<Phone> allPhones;
+    @Getter @Setter
+    private int manufacturerId;
 
     @PostConstruct
     public void init() {
-        loadAllPhones();
+       loadAllManufacturers();
     }
-    private void loadAllPhones() {
-        allPhones = phoneDAO.getAllPhones();
+
+    private void loadAllManufacturers() {
+        allManufacturers = manufacturerDAO.getAllManufacturies();
     }
+
+
     @Transactional
     public void createPhone() {
-        phone.setModel("jpa");
-        phone.setPrice(100);
-
-        manufacturer.setName("jpa man");
-
-        phone.setManufacturer(manufacturer);
-        manufacturer.getPhonesList().add(phone);
-
+        loadAllManufacturers();
+        Manufacturer manufacturer = allManufacturers.stream()
+                .filter(m -> m.getId() == manufacturerId).findFirst().orElse(null);
+        if (manufacturer != null){
+            phone.setManufacturer(manufacturer);
+            manufacturer.getPhonesList().add(phone);
+            manufacturerDAO.create(manufacturer);
+            phoneDAO.create(phone);
+        }
+    }
+    @Transactional
+    public void createManufacturer() {
+        System.out.println(manufacturer.getName());
         manufacturerDAO.create(manufacturer);
-        phoneDAO.create(phone);
-
-        System.out.println("created");
     }
 }

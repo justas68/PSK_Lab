@@ -45,4 +45,6 @@ public interface PhoneMapper {
      * @mbg.generated Sun Mar 24 22:30:53 EET 2019
      */
     int updateByPrimaryKey(Phone record);
+
+    List<Phone> selectByManufacturerId (Integer manufacturerId);
 }
