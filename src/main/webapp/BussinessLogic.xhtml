@@ -13,22 +13,25 @@
 </h:head>
 <h:body>
     <p:link outcome="index">
-        <button class="btn"><i class="fa fa-home"></i> Home</button>
+        <button class="btn"><i class="fa fa-home"/> Home</button>
     </p:link>
     <h2 style="margin-left: 3%; margin-top: 2%;">Calculate price for phones</h2>
     <h:form>
 
-        <h:selectOneMenu id="phones" value="#{requestUseCaseControllerJPA.phoneId}"
+        <h:selectOneMenu id="phones" value="#{comp.phoneId}"
                          style="width:200px; font-size: 20px; height: 25px; margin-left: 1%;"
                          onclick="">
             <f:selectItems value="#{requestUseCaseControllerJPA.allPhones}" var="p"
                            itemLabel="#{p.model}" itemValue="#{p.id}"/>
         </h:selectOneMenu>
 
-        <h:inputText value="#{requestUseCaseControllerJPA.phonesCount}" converterMessage="Please enter digits only." />
-        <p:button onclick="#{comp.calculate(requestUseCaseControllerJPA.phoneId, requestUseCaseControllerJPA.phonesCount)}" value = "Ok"/>
+        <h:inputText value="#{comp.phonesCount}" converterMessage="Please enter digits only." style ="margin-left:1%; height: 20px; " />
+        <p:commandButton value="Ok"
+                         ajax="false" style ="margin-left:1%;">
+        <f:ajax render="priceLabel"/>
+        </p:commandButton>
         <br/>
-        <p:outputLabel value = "#{comp.getTaxes()}"/>
+        <p:outputLabel id="priceLabel" value = "#{comp.calculate()}  eurų" style ="margin-left:6%; margin-top: 8%; height: 25px; font-size: 20px; "/>
     </h:form>
 </h:body>
 </html>

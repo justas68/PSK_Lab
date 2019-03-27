@@ -40,12 +40,6 @@ public class RequestUseCaseControllerJPA {
     @Getter @Setter
     private int manufacturerId;
 
-    @Getter @Setter
-    private int phonesCount;
-
-    @Setter @Getter
-    private int phoneId;
-
     @PostConstruct
     public void init() {
        loadAllManufacturers();
