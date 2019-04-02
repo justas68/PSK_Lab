@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:width="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <h:outputStylesheet name="css/styles.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+</h:head>
+<h:body>
+    <p:link outcome="index">
+        <button class="btn"><i class="fa fa-home"/> Home</button>
+    </p:link>
+    <h2 style="margin-left: 3%; margin-top: 2%;">Change phone information</h2>
+    <h:form id="form">
+        <p:fieldset id="list" style="width: 50%">
+        <p:commandButton value="Reload phone" icon="ui-icon-arrowrefresh-1-e"
+        actionListener="#{updatePhone.reloadPhones()}"
+        update=":form:list"/>
+        <p:dataTable value="#{updatePhone.allPhones}" var="phone" tableStyle="table-layout: auto">
+            <p:column headerText="Phone">
+               <b>Model</b> #{phone.model} <br/><b>Price</b>: #{phone.price}
+            </p:column>
+            <p:column>
+                <p:commandButton value="Edit" icon="ui-icon-pencil"
+                                 actionListener="#{updatePhone.prepareForEditing(phone)}"
+                                 update=":form:phoneDetail"
+                                 oncomplete="PF('phoneDialog').show()" />
+            </p:column>
+        </p:dataTable>
+        </p:fieldset>
+        <p:dialog header="Edit phone" widgetVar="phoneDialog" modal="true" closable="true" resizable="false" closeOnEscape="true">
+            <p:outputPanel id="phoneDetail">
+                <h:outputText value="No phone was selected... Weird..." rendered="#{empty updatePhone.selectedPhone}" />
+                <p:panelGrid  columns="3" rendered="#{not empty updatePhone.selectedPhone}"
+                              columnClasses="label,value" styleClass="ui-noborder">
+                    <p:outputLabel for="model" value="Model:"/>
+                    <p:inputText id="model" value="#{updatePhone.selectedPhone.model}"/>
+                    <p:message for="model"/>
+
+                    <p:outputLabel for="price" value="price:"/>
+                    <p:inputText id="price" value="#{updatePhone.selectedPhone.price}"/>
+                    <p:message for="price"/>
+
+                    <h:outputText value="Opt. version:" />
+                    <h:outputText value="#{updatePhone.selectedPhone.optLockVersion}" style="font-weight: bold"/>
+                </p:panelGrid>
+
+                <p:commandButton value="Update" actionListener="#{updatePhone.updateSelectedPhone}"
+                                 rendered="#{empty updatePhone.conflictingPhone}"
+                                 icon="ui-icon-check" style="margin-top: 1em"
+                                 update=":form:phoneDetail :form:list"
+                                 oncomplete="if (args &amp;&amp; !args.validationFailed) PF('phoneDialog').hide()" />
+
+                <p:panelGrid  columns="2" rendered="#{not empty updatePhone.conflictingPhone}"
+                              columnClasses="label,value" styleClass="ui-noborder" style="margin-top: 1em">
+                    <f:facet name="header">Conflicting phone</f:facet>
+
+                    <h:outputText value="Model"/>
+                    <h:outputText value="#{updatePhone.conflictingPhone.model}"/>
+
+                    <h:outputText value="Price"/>
+                    <h:outputText value="#{updatePhone.conflictingPhone.price}"/>
+
+                    <h:outputText value="Opt. version:" />
+                    <h:outputText value="#{updatePhone.conflictingPhone.optLockVersion}" style="font-weight: bold"/>
+                </p:panelGrid>
+
+                <p:commandButton value="Overwrite" actionListener="#{updatePhone.overwritePhone}"
+                                 rendered="#{not empty updatePhone.conflictingPhone}"
+                                 icon="ui-icon-notice" style="margin-top: 1em"
+                                 update=":form:phoneDetail :form:list"
+                                 oncomplete="if (args &amp;&amp; !args.validationFailed) PF('phoneDialog').hide()" />
+            </p:outputPanel>
+        </p:dialog>
+        <p:messages globalOnly="true"/>
+    </h:form>
+</h:body>
+</html>

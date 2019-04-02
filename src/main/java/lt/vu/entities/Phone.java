@@ -50,7 +50,7 @@ public class Phone implements Serializable {
     private List<Shop> shopsList = new ArrayList<>();
 
     @JoinColumn(name = "MANUFACTURER_ID", referencedColumnName = "ID")
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JohnzonIgnore
     private Manufacturer manufacturer;
 
