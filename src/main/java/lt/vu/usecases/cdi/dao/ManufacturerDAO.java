@@ -34,4 +34,7 @@ public class ManufacturerDAO {
     public List<Manufacturer> getAllManufacturies() {
         return em.createNamedQuery("Manufacturer.findAll", Manufacturer.class).getResultList();
     }
+    public Manufacturer findManufacturerById(int id){
+        return em.find(Manufacturer.class, id);
+    }
 }

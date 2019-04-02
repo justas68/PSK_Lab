@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import lt.vu.entities.Manufacturer;
 import lt.vu.entities.Phone;
 import lt.vu.entities.Shop;
+import lt.vu.interceptors.Log;
 import lt.vu.usecases.cdi.dao.ManufacturerDAO;
 import lt.vu.usecases.cdi.dao.PhoneDAO;
 import lt.vu.usecases.cdi.dao.ShopDAO;
@@ -18,7 +19,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Model
+@Log
 public class RequestUseCaseControllerJPA {
+
     @Getter
     private Phone phone = new Phone();
 

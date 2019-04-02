@@ -12,8 +12,9 @@ public class PhoneDAO {
     @Inject
     private EntityManager em;
 
-    public void create(Phone phone) {
+    public Phone create(Phone phone) {
         em.persist(phone);
+        return phone;
     }
 
     public void updateAndFlush(Phone phone) {

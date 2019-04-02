@@ -24,8 +24,7 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = "Phone.findAll", query = "SELECT s FROM Phone s")
 })
-@Getter
-@Setter
+@Getter @Setter
 @EqualsAndHashCode(of = "model")
 @ToString(of = {"id", "model"})
 public class Phone implements Serializable {
@@ -54,5 +53,9 @@ public class Phone implements Serializable {
     @ManyToOne
     @JohnzonIgnore
     private Manufacturer manufacturer;
+
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    private Integer optLockVersion;
 
 }

@@ -24,8 +24,7 @@ import java.util.List;
     @NamedQuery(name = "Shop.findById", query = "SELECT s FROM Shop s WHERE s.id = :id"),
     @NamedQuery(name = "Shop.findByName", query = "SELECT s FROM Shop s WHERE s.name LIKE :name"),
 })
-@Getter
-@Setter
+@Getter @Setter
 @EqualsAndHashCode()
 @ToString(of = {"name", "address"})
 public class Shop implements Serializable {

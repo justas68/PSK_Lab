@@ -3,6 +3,7 @@ package lt.vu.usecases.cdi.simple;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import lt.vu.interceptors.Log;
 import lt.vu.usecases.mybatis.dao.ManufacturerMapper;
 import lt.vu.usecases.mybatis.dao.PhoneMapper;
 import lt.vu.usecases.mybatis.dao.ShopMapper;

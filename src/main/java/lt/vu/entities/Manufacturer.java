@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.johnzon.mapper.JohnzonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -21,8 +22,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "Manufacturer.findAll", query = "SELECT s FROM Manufacturer s")
 })
-@Getter
-@Setter
+@Getter @Setter
 @EqualsAndHashCode(of = "name")
 @ToString(of = {"id", "name"})
 public class Manufacturer implements Serializable {
@@ -38,5 +38,10 @@ public class Manufacturer implements Serializable {
 
 
     @OneToMany(mappedBy = "manufacturer")
+    @JohnzonIgnore
     private List<Phone> phonesList = new ArrayList<>();
+
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    private Integer optLockVersion;
 }

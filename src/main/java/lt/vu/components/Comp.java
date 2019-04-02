@@ -3,12 +3,14 @@ package lt.vu.components;
 import lombok.Getter;
 import lombok.Setter;
 import lt.vu.entities.Phone;
+import lt.vu.interceptors.Log;
 import lt.vu.usecases.cdi.dao.PhoneDAO;
+import lt.vu.utils.PriceCalculator;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.Random;
 
 @Named
 @RequestScoped
@@ -25,15 +27,14 @@ public class Comp {
     @Inject
     private PhoneDAO phoneDAO;
 
-    Random rand = new Random();
-    private int pvm = rand.nextInt(21);
+    @Inject
+    private PriceCalculator priceCalculator;
 
-
+    @Log
     public double calculate(){
-        System.out.println("from calculate " + phoneId + " " + phonesCount);
         Phone phone = phoneDAO.findById(phoneId);
         if (phone != null){
-            return (phone.getPrice()*(pvm+100)*phonesCount)/100;
+            return priceCalculator.calculate(phone.getPrice(), phonesCount);
         }
         else {
             return 0;
